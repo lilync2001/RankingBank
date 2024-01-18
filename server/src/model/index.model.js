@@ -1,12 +1,12 @@
 // importar todos los modelos
-import { Usuario } from "./usuario.models.js";
-import { Venta } from "./venta.models.js";
-import { Ranking } from "./ranking.models.js";
-import { RankingUsuario } from "./rankingUsuario.models.js";
+import { Usuario } from "./usuarios/usuario.model.js";
+import { Credito } from "./creditos/credito.model.js";
+import { Ranking } from "./ranking/rankig.model.js";
+import { RankingUsuario } from "./rankingUsuario/rankingUsuario.model.js";
 
 export default {
   Usuario,
-  Venta,
+  Credito,
   Ranking,
   RankingUsuario,
 };
