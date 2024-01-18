@@ -1,14 +1,14 @@
-import { Sequelize } from "sequelize";
-import { dbVariables } from "../config/config.js";
+import Sequelize from "sequelize";
+import { variableConfig } from "../config/variables.config.js";
 
 export const sequelize = new Sequelize(
-    dbVariables.dbName,
-    dbVariables.dbUser,
-    dbVariables.dbPassword,
-    {
-        host: dbVariables.dbServer,
-        dialect: dbVariables.dbDialect,
-        logging: false,
-        port: dbVariables.dbPort,
-    }
+  variableConfig.dbName,
+  variableConfig.dbUser,
+  variableConfig.dbPassword,
+  {
+    host: variableConfig.dbServer,
+    dialect: variableConfig.dbDialect,
+    logging: false,
+    port: variableConfig.dbPort,
+  }
 );
