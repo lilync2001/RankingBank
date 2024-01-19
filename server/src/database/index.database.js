@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import { variableConfig } from "../config/variables.config.js";
+import { variableConfig } from "../config/config.js";
 
 export const sequelize = new Sequelize(
   variableConfig.dbName,
