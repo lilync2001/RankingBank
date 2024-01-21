@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";  
 import { generartoken } from "../utils/index.utils.js";
-import UsuarioRepository from "../repositories/usuario.repository.js";
+import UsuarioRepository from "../repositories/usuario.respository.js";
 
 class UsuarioService {
   constructor() {

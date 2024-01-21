@@ -1,23 +1,15 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../database/index.database";
+import { sequelize } from "../../database/index.database.js";
 import { Usuario } from "../usuarios/usuario.model.js";
-import { Ranking } from "../ranking/rankig.model.js";
 
-export const RankingUsuario = sequelize.define(
-  "ranking_usuario",
+export const Credito = sequelize.define(
+  "credito",
   {
-    rankingUsuarioID: {
+    creditoID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
-    },
-    rankingID: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Ranking,
-        key: "rankingID",
-      },
     },
     usuarioID: {
       type: DataTypes.INTEGER,
@@ -26,7 +18,11 @@ export const RankingUsuario = sequelize.define(
         key: "usuarioID",
       },
     },
-    montoTotalVentas: {
+    fecha: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    monto: {
       type: DataTypes.BIGINT,
     },
   },
@@ -36,12 +32,7 @@ export const RankingUsuario = sequelize.define(
   }
 );
 
-RankingUsuario.belongsTo(Ranking, {
-  foreignKey: "rankingID",
-  as: "ranking",
-});
-
-RankingUsuario.belongsTo(Usuario, {
+Credito.belongsTo(Usuario, {
   foreignKey: "usuarioID",
   as: "usuario",
 });

@@ -1,5 +1,5 @@
 import RankingRepository from "../repositories/ranking.repository.js";
-import { CustomError } from "../errors/index.error.js";
+import { CustomError } from "../errors/index.error.js"; 
 
 export default class RankingService {
   constructor() {

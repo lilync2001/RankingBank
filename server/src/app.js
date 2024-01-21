@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-//import indexRoutes from "./routes/index.routes.js";
+import indexRoutes from "./routers/index.router.js";
 import morgan from "morgan";
 
 const app = express();
@@ -21,6 +21,6 @@ app.use(
 );
 app.use(morgan(":method :url :status :res[content-length] - :response-time ms"));
 
-//app.use(indexRoutes);
+app.use(indexRoutes);
 
 export default app;

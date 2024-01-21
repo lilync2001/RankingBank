@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../database/index.database";
+import { sequelize } from "../../database/index.database.js";
 
 export const Ranking = sequelize.define(
   "ranking",
