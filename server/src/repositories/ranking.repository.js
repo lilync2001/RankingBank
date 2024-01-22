@@ -13,7 +13,7 @@ export default class RankingRepository {
 
         const usuariosVendedores = await UsuarioModel.findAll({
           where: {
-            rol: "ASESOR",
+            rolID: 2,
           },
         });
 

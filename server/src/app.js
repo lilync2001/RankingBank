@@ -1,26 +1,20 @@
 import express from "express";
-import cors from "cors";
-import indexRoutes from "./routers/index.router.js";
-import morgan from "morgan";
+import { createServer } from "http";
+import { Server } from "socket.io";
+
+import { variableConfig } from "./config/config.js";
+import socketsService from "./sockets/index.socket.js";
+import rutasApp from "./routes/index.routes.js";
+import { inyeccionMiddleware } from "./middleware/inyeccion.middleware.js";
 
 const app = express();
-app.use(express.json());
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+app.set("port", variableConfig.port || 3000);
 
-const whiteList = [
-  "http://localhost:4200",
-  "https://localhost:4200",
-];
+inyeccionMiddleware(app, express);
 
-app.use(
-  cors({
-    credentials: true,
-    origin: whiteList,
+app.use("/api", rutasApp);
+socketsService(io);
 
-    credentials: true,
-  })
-);
-app.use(morgan(":method :url :status :res[content-length] - :response-time ms"));
-
-app.use(indexRoutes);
-
-export default app;
+export { app, httpServer };

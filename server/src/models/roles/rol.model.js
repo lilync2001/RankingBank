@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../database/index.database";
+import { sequelize } from "../../database/index.database.js";
 
 export const Rol = sequelize.define(
   "rol",
@@ -24,3 +24,4 @@ export const Rol = sequelize.define(
     freezeTableName: true,
   }
 );
+

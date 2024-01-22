@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../database/index.database.js";
+import { Rol } from "../roles/rol.model.js";
 
 export const Usuario = sequelize.define(
   "usuario",
@@ -9,6 +10,14 @@ export const Usuario = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
+    },
+    rolID: {
+      type: DataTypes.INTEGER,
+      defaultValue: 2,
+      references: {
+        model: Rol,
+        key: "rolID",
+      },
     },
     nombre: {
       type: DataTypes.STRING(255),
@@ -27,10 +36,6 @@ export const Usuario = sequelize.define(
       type: DataTypes.STRING(255),
       required: true,
     },
-    rol: {
-      type: DataTypes.STRING(255),
-      defaultValue: "ASESOR",
-    },
     estado: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
@@ -41,3 +46,8 @@ export const Usuario = sequelize.define(
     freezeTableName: true,
   }
 );
+
+Usuario.belongsTo(Rol, {
+  foreignKey: "rolID",
+  as: "rol",
+});

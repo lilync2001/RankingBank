@@ -11,10 +11,6 @@ rankingRouter.get(
 );
 rankingRouter.get("/:id", controller.obtenerRankingPorID.bind(controller));
 rankingRouter.post("/", controller.crearRanking.bind(controller));
-rankingRouter.put(
-  "/usuario",
-  controller.actualizarRankingUsuario.bind(controller)
-);
 rankingRouter.delete("/:id", controller.finalizarRanking.bind(controller));
 
 export default rankingRouter;
