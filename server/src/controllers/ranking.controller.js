@@ -1,4 +1,4 @@
-import RankingService from "../errorHandling/ranking.errorhandling.js";
+import RankingService from "../services/ranking.services.js";
 
 export default class RankingController {
   constructor() {

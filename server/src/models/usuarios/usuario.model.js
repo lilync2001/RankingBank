@@ -13,7 +13,7 @@ export const Usuario = sequelize.define(
     },
     rolID: {
       type: DataTypes.INTEGER,
-      defaultValue: 2,
+      //defaultValue: 2,
       references: {
         model: Rol,
         key: "rolID",

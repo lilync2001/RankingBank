@@ -232,4 +232,29 @@ export default class RankingRepository {
       throw error;
     }
   }
+  async actualizarRankingPorAprobacionDeCredito(usuarioID, monto) {
+    // Encuentra o crea una entrada en el ranking para el usuario
+    try{
+        let entradaRanking = await RankingUsuarioModel.findOne({
+        where: { usuarioID, /* rankingID si es necesario */ }
+        });
+    
+        if (!entradaRanking) {
+        entradaRanking = await RankingUsuarioModel.create({
+            usuarioID,
+            montoTotalVentas: monto,
+            // Añadir otros campos necesarios
+        });
+        } else {
+        entradaRanking.montoTotalVentas += monto;
+        await entradaRanking.save();
+        }
+    
+        return entradaRanking;
+    }catch (error) {
+    throw error;
+    }
+
 }
+}
+

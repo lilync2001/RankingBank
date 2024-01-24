@@ -1,4 +1,4 @@
-import RankingService from "../errorHandling/ranking.errorhandling.js";
+import RankingService from "../services/ranking.services.js";
 import { verificarToken } from "../utils/index.utils.js";
 
 const rankingService = new RankingService();

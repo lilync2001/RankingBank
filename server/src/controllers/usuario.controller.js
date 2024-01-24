@@ -1,4 +1,4 @@
-import UsuarioService from "../errorHandling/usuario.errorhandling.js";
+import UsuarioService from "../services/usuario.services.js";
 
 class UsuarioController {
   constructor() {
@@ -26,13 +26,13 @@ class UsuarioController {
 
   async crearUsuario(req, res) {
     try {
-      const { nombre, apellido, email, password, rol } = req.body;
+      const { nombre, apellido, email, password, rolID } = req.body;
       const usuario = await this.usuarioService.crearUsuario({
         nombre,
         apellido,
         email,
         password,
-        rol,
+        rolID,
       });
       return res.status(201).json({
         status: true,

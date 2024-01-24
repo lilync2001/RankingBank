@@ -25,6 +25,11 @@ export const Credito = sequelize.define(
     monto: {
       type: DataTypes.BIGINT,
     },
+    estadoCredito: {
+      type: DataTypes.STRING,
+      defaultValue: 'pendiente', // O puedes usar valores numéricos si prefieres
+    },
+    
   },
   {
     timestamps: false,
