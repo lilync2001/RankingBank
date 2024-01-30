@@ -1,6 +1,6 @@
 import UsuarioService from "../services/usuario.services.js";
 
-class UsuarioController {
+export default class UsuarioController {
   constructor() {
     this.usuarioService = new UsuarioService();
   }
@@ -26,13 +26,14 @@ class UsuarioController {
 
   async crearUsuario(req, res) {
     try {
-      const { nombre, apellido, email, password, rolID } = req.body;
+      const { nombre, apellido, telefono, email, password, rol } = req.body;
       const usuario = await this.usuarioService.crearUsuario({
         nombre,
         apellido,
+        telefono,
         email,
         password,
-        rolID,
+        rol,
       });
       return res.status(201).json({
         status: true,
@@ -121,4 +122,4 @@ class UsuarioController {
   }
 }
 
-export default UsuarioController;
+ 

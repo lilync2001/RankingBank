@@ -1,13 +1,18 @@
 import { Router } from "express";
 import CreditoController from "../controllers/credito.controller.js";
+import { verificarRol } from "../utils/index.utils.js";
 
-const creditoRouter = Router();
+
+const creditosRouter = Router();
 const controller = new CreditoController();
 
-//supervisor
-creditoRouter.post('/:creditoID/aprobar', controller.aprobarCredito.bind(controller));
-creditoRouter.post('/:creditoID/rechazar', controller.rechazarCredito.bind(controller));
+creditosRouter.get("/", controller.obtenerCreditos.bind(controller));
+creditosRouter.get("/:id", controller.obtenerCreditoPorID.bind(controller));
+creditosRouter.post("/", controller.crearCredito.bind(controller));
+creditosRouter.put(
+  "/estado/:id",
+  verificarRol("SUPERVISOR"),
+  controller.cambiarEstadoCredito.bind(controller)
+);
 
-// Ruta para asesores
-creditoRouter.post('/ingresar', controller.ingresarCredito.bind(controller));
-export default creditoRouter;
+export default creditosRouter;

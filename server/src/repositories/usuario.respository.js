@@ -8,6 +8,7 @@ class UsuarioRepository {
         usuarioID: usuarioCreado.usuarioID,
         nombre: usuarioCreado.nombre,
         apellido: usuarioCreado.apellido,
+        telefono: usuarioCreado.telefono,
         email: usuarioCreado.email,
         rol: usuarioCreado.rol,
         estado: usuarioCreado.estado,

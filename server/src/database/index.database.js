@@ -8,7 +8,7 @@ export const sequelize = new Sequelize(
   {
     host: variableConfig.dbServer,
     dialect: variableConfig.dbDialect,
-    logging: false,
+   // logging: false,
     port: variableConfig.dbPort,
   }
 );

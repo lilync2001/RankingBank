@@ -2,7 +2,7 @@ import { httpServer, app } from "./app.js";
 import { sequelize } from "./database/index.database.js";
 async function main() {
     try {
-        // iniciar servidor de base de datos
+        // iniciar servidor de base de datos {force: true}
         await sequelize.sync();
         sequelize
           .authenticate()

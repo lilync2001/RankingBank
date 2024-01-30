@@ -1,72 +1,77 @@
-import CreditoService from "../services/credito.services.js";
+import CreditoServices from "../services/credito.services.js";
 
 export default class CreditoController {
-    constructor(){
-        this.creditoService = new CreditoService();
-    }
-    async aprobarCredito(req,res){  
-        try {
-            const { creditoID } = req.params;
-            const credito = await this.creditoService.aprobarCredito(creditoID);
-            if (!credito) {
-            return res.status(404).json({ 
-                mensaje: "Crédito no encontrado" 
-            });
-            }
-            // Actualizar el estado del crédito a 'aprobado'
-            credito.estadoCredito = 'aprobado';
-            await credito.save();
-            res.json({ 
-                mensaje: "Crédito aprobado con éxito" 
-            });
-        } catch (error) {
-            res.status(error.statusCode || 500).json({
-                status: false,
-                error: error.message,
-                errorStack: "" + error.originalError,
-              });
-        }
-    };
-  
-  // Método para rechazar crédito
-    async rechazarCredito(req, res){
-        try {
-            const { creditoID } = req.params;
-            const credito = await this.creditoService.rechazarCredito(creditoID);
-            if (!credito) {
-            return res.status(404).json({ 
-                mensaje: "Crédito no encontrado" 
-            });
-            }
-            // Actualizar el estado del crédito a 'aprobado'
-            credito.estadoCredito = 'rechazado';
-            await credito.save();
-            res.json({ 
-                mensaje: "Crédito rechazado con éxito" 
-            });
-        } catch (error) {
-            res.status(error.statusCode || 500).json({
-                status: false,
-                error: error.message,
-                errorStack: "" + error.originalError,
-              });
-        }
-    }
+  constructor() {
+    this.creditoService = new CreditoServices();
+  }
 
-    async ingresarCredito(req, res){
-        try {
-            const { usuarioID, monto } = req.body;
-            const nuevoCredito = await this.creditoService.ingresarCredito({ usuarioID, monto });
-
-            res.status(201).json({ mensaje: "Crédito ingresado con éxito", credito: nuevoCredito });
-        } catch (error) {
-            res.status(error.statusCode || 500).json({
-                status: false,
-                error: error.message,
-                errorStack: "" + error.originalError,
-              });
-        }
+  async crearCredito(req, res) {
+    try {
+      const credito = await this.creditoService.crearCredito(req.body);
+      return res.status(201).json({
+        status: true,
+        body: credito,
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: false,
+        error: error.message,
+        errorStack: "" + error.originalError,
+      });
     }
+  }
 
+  async obtenerCreditos(req, res) {
+    try {
+      const creditos = await this.creditoService.obtenerTodosLosCreditos();
+      return res.status(200).json({
+        body: creditos,
+        estado: true,
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: false,
+        error: error.message,
+        errorStack: "" + error.originalError,
+      });
+    }
+  }
+
+  async obtenerCreditoPorID(req, res) {
+    try {
+      const { id } = req.params;
+      const credito = await this.creditoService.obtenerCreditoPorID(id);
+      return res.status(200).json({
+        body: credito,
+        estado: true,
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: false,
+        error: error.message,
+        errorStack: "" + error.originalError,
+      });
+    }
+  }
+
+  async cambiarEstadoCredito(req, res) {
+    try {
+      const { id } = req.params;
+      const { estado } = req.body;
+      const credito = await this.creditoService.cambiarEstadoCredito(
+        id,
+        estado
+      );
+      return res.status(200).json({
+        body: credito,
+        estado: true,
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: false,
+        error: error.message,
+        errorStack: "" + error.originalError,
+      });
+    }
+  }
 }
-  

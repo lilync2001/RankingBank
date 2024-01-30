@@ -22,14 +22,17 @@ export const Credito = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    plazo: {
+      type: DataTypes.INTEGER,
+    },
     monto: {
       type: DataTypes.BIGINT,
     },
-    estadoCredito: {
-      type: DataTypes.STRING,
-      defaultValue: 'pendiente', // O puedes usar valores numéricos si prefieres
+    estado: {
+      type: DataTypes.STRING(255),
+      defaultValue: "PENDIENTE",
+      enum: ["APROBADO", "RECHAZADO", "PENDIENTE"],
     },
-    
   },
   {
     timestamps: false,

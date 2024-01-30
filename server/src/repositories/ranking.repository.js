@@ -1,6 +1,6 @@
 import { Ranking as RankingModel } from "../models/ranking/rankig.model.js";
 import { Usuario as UsuarioModel } from "../models/usuarios/usuario.model.js";
-import { Credito as CreditoModel } from "../models/creditos/credito.model.js";
+//import { Credito as CreditoModel } from "../models/creditos/credito.model.js";
 import { RankingUsuario as RankingUsuarioModel } from "../models/rankingUsuario/rankingUsuario.model.js";
 import { parseMoney } from "../utils/index.utils.js";
 export default class RankingRepository {
@@ -13,7 +13,7 @@ export default class RankingRepository {
 
         const usuariosVendedores = await UsuarioModel.findAll({
           where: {
-            rolID: 2,
+            rol: "ASESOR",
           },
         });
 
@@ -195,17 +195,7 @@ export default class RankingRepository {
   async insertarVentaYActualizarRanking(venta) {
     try {
       const { usuarioID, monto } = venta;
-      await CreditoModel.sequelize.transaction(async (t) => {
-        await CreditoModel.create(
-          {
-            usuarioID,
-            monto,
-          },
-          {
-            transaction: t,
-          }
-        );
-
+      await RankingModel.sequelize.transaction(async (t) => {
         const ranking = await RankingModel.findOne({
           where: {
             estado: true,
@@ -223,38 +213,11 @@ export default class RankingRepository {
         rankingUsuario.montoTotalVentas = saldo;
 
         await rankingUsuario.save();
-        return {
-          mensaje: "Credito creada y ranking actualizado",
-        };
+        return true;
       });
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
-  async actualizarRankingPorAprobacionDeCredito(usuarioID, monto) {
-    // Encuentra o crea una entrada en el ranking para el usuario
-    try{
-        let entradaRanking = await RankingUsuarioModel.findOne({
-        where: { usuarioID, /* rankingID si es necesario */ }
-        });
-    
-        if (!entradaRanking) {
-        entradaRanking = await RankingUsuarioModel.create({
-            usuarioID,
-            montoTotalVentas: monto,
-            // Añadir otros campos necesarios
-        });
-        } else {
-        entradaRanking.montoTotalVentas += monto;
-        await entradaRanking.save();
-        }
-    
-        return entradaRanking;
-    }catch (error) {
-    throw error;
-    }
-
 }
-}
-

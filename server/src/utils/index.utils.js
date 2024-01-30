@@ -28,6 +28,20 @@ export const verificarToken = (token) => {
   }
 };
 
+export const verificarRol = (roles) => {
+  return (req, res, next) => {
+    const { rol } = req.usuario;
+    if (roles.includes(rol)) {
+      next();
+    } else {
+      return res.status(401).json({
+        status: false,
+        error: "No tienes permisos para realizar esta acción",
+      });
+    }
+  };
+};
+
 export function parseMoney(money) {
   const moneyFormat = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -38,4 +52,4 @@ export function parseMoney(money) {
   return moneyFormat.format(money / 1000);
 }
 
-export default { generartoken, verificarToken, parseMoney };
+export default { generartoken, verificarToken, verificarRol, parseMoney };
