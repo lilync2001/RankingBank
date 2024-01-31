@@ -129,7 +129,7 @@ export default class RankingRepository {
       if (!ranking || ranking === null) throw Error("Ranking no encontrado");
 
       const rankingUsuario = ranking.rankingID;
-
+      //console.log('rankingUsuario', rankingUsuario)
       const usuarios = await RankingUsuarioModel.findAll({
         where: {
           rankingID: rankingUsuario,
@@ -141,7 +141,8 @@ export default class RankingRepository {
           attributes: ["nombre", "apellido"],
         },
       });
-
+      //where con estado aprobado'
+      //console.log('usuarios', usuarios)
       return usuarios.map((usuario) => ({
         nombre: usuario.usuario.nombre + " " + usuario.usuario.apellido,
         montoTotalVentas: parseMoney(usuario.montoTotalVentas),

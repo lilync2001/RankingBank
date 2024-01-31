@@ -49,7 +49,7 @@ export function parseMoney(money) {
     minimumFractionDigits: 2,
   });
   // 1$ = 100 centavos
-  return moneyFormat.format(money / 100);
+  return moneyFormat.format(money);
 }
 
 export default { generartoken, verificarToken, verificarRol, parseMoney };
