@@ -12,15 +12,19 @@ export const ConfigCredito = sequelize.define(
     },
     montoMinimo: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     },
     montoMaximo: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     },
     plazoMinimo: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     plazoMaximo: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     },
   },
   {
