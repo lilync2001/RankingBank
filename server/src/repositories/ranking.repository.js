@@ -195,26 +195,27 @@ export default class RankingRepository {
   async insertarVentaYActualizarRanking(venta) {
     try {
       const { usuarioID, monto } = venta;
-      await RankingModel.sequelize.transaction(async (t) => {
+     
         const ranking = await RankingModel.findOne({
           where: {
             estado: true,
           },
         });
-
+        console.log('ranking', ranking)
         const rankingUsuario = await RankingUsuarioModel.findOne({
           where: {
             rankingID: ranking.dataValues.rankingID,
             usuarioID: usuarioID,
           },
         });
+        console.log('prueba', rankingUsuario)
         const saldo =
           parseInt(rankingUsuario.montoTotalVentas) + parseInt(monto);
         rankingUsuario.montoTotalVentas = saldo;
 
         await rankingUsuario.save();
         return true;
-      });
+      
     } catch (error) {
       console.log(error);
       throw error;

@@ -16,10 +16,10 @@ export default class CreditoServices {
       console.log('configC', configCredito)
 
       if (credito.monto < configCredito.montoMinimo || credito.monto >  configCredito.montoMaximo) {
-        throw Error("El monto ingresado debe estar entre $1000 y $40000");
+        throw Error("El monto ingresado debe estar entre $"+configCredito.montoMinimo+ " y $"+configCredito.montoMaximo);
       }
       if (credito.plazo <  configCredito.plazoMinimo || credito.plazo > configCredito.plazoM) {
-        throw Error("El plazo ingresado debe estar entre 12 y 48 meses");
+        throw Error("El plazo ingresado debe estar entre "+ plazoMinimo+ " y " +plazoMaximo+ " meses");
       }
       //validar si la fecha que se ingresa es mayor a la fecha actual con el formato YYYY-MM-DD
       const fechaActual = dayjs().format("YYYY-MM-DD");

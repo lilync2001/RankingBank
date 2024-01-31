@@ -8,7 +8,7 @@ const controller = new CreditoController();
 
 creditosRouter.get("/", controller.obtenerCreditos.bind(controller));
 creditosRouter.get("/:id", controller.obtenerCreditoPorID.bind(controller));
-creditosRouter.post("/", controller.crearCredito.bind(controller));
+creditosRouter.post("/",  verificarRol("ASESOR"),controller.crearCredito.bind(controller));
 creditosRouter.put(
   "/estado/:id",
   verificarRol("SUPERVISOR"),
