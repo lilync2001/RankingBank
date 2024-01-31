@@ -13,7 +13,7 @@ export default class CreditoServices {
   async crearCredito(credito) {
     try {
       const configCredito = await this.configCreditoService.obtenerConfigPorID(1)
-      console.log('configC', configCredito)
+      //console.log('configC', configCredito)
 
       if (credito.monto < configCredito.montoMinimo || credito.monto >  configCredito.montoMaximo) {
         throw Error("El monto ingresado debe estar entre $"+configCredito.montoMinimo+ " y $"+configCredito.montoMaximo);

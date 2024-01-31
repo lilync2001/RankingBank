@@ -1,16 +1,36 @@
 import RankingRepository from "../repositories/ranking.repository.js";
 import { CustomError } from "../errors/index.error.js";
+import configCreditoService from "./configCredito.services.js";
+import dayjs from "dayjs";
 
 
 export default class RankingService {
   constructor() {
     this.rankingRepository = new RankingRepository();
+    this.configCreditoService = new configCreditoService();
   }
 
   async crearRanking(ranking) {
     try {
+      const configCredito = await this.configCreditoService.obtenerConfigPorID(1)
       const rankingActivo = await this.rankingRepository.obtenerRankingActivo();
       if (rankingActivo) throw Error("Ya existe un ranking activo");
+      if(ranking.meta< configCredito.montoMinimo){
+        throw Error("La meta debe ser superior a $"+configCredito.montoMinimo);
+      }
+
+      //validar fechas
+      const fechaActual = dayjs().format("YYYY-MM-DD");
+      const fechaIngresada = dayjs(ranking.fechaInicio).format("YYYY-MM-DD");
+      const fechaFinal =  dayjs(fechaIngresada).add(30,'day').format("YYYY-MM-DD");;
+      const fechaFinI = dayjs(ranking.fechaFin).format("YYYY-MM-DD");
+      
+      if(fechaIngresada< fechaActual){
+        throw Error("La fecha ingresada no puede ser anterior a la actual");
+      }
+      if(fechaFinI< fechaFinal){
+        throw Error("La fecha final debe ser un mes después de la fecha de inicio");
+      }
 
       const rankingCreado = await this.rankingRepository.crearRanking(ranking);
       return rankingCreado;
