@@ -5,10 +5,12 @@ import { verificarRol } from "../utils/index.utils.js";
 const usuarioRouter = Router();
 const controller = new UsuarioController();
 
-usuarioRouter.get("/", controller.obtenerUsuarios.bind(controller));
-usuarioRouter.get("/:id", controller.obtenerUsuarioPorID.bind(controller));
-usuarioRouter.post("/", verificarRol("ADMIN"), controller.crearUsuario.bind(controller));
+usuarioRouter.get("/",verificarRol("ADMIN"), controller.obtenerUsuarios.bind(controller));
+usuarioRouter.get("/:id",verificarRol("ADMIN"), controller.obtenerUsuarioPorID.bind(controller));
+usuarioRouter.post("/",verificarRol("ADMIN"), controller.crearUsuario.bind(controller));
 usuarioRouter.put("/:id", controller.actualizarUsuario.bind(controller));
-usuarioRouter.delete("/:id", controller.eliminarUsuario.bind(controller));
+usuarioRouter.delete("/:id",verificarRol("ADMIN"), controller.eliminarUsuario.bind(controller));
 
 export default usuarioRouter;
+
+//verificarRol("ADMIN")

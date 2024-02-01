@@ -8,6 +8,7 @@ class UsuarioRepository {
         usuarioID: usuarioCreado.usuarioID,
         nombre: usuarioCreado.nombre,
         apellido: usuarioCreado.apellido,
+        cedula: usuarioCreado.cedula,
         telefono: usuarioCreado.telefono,
         email: usuarioCreado.email,
         rol: usuarioCreado.rol,
@@ -30,6 +31,7 @@ class UsuarioRepository {
         usuarioID: usuario.usuarioID,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
+        cedula: usuarioCreado.cedula,
         email: usuario.email,
         password: usuario.password,
         rol: usuario.rol,
@@ -55,9 +57,33 @@ class UsuarioRepository {
         usuarioID: usuario.usuarioID,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
+        cedula: usuario.cedula,
         email: usuario.email,
         rol: usuario.rol,
         estado: usuario.estado,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async obtenerUsuarioPorCedula(cedula) {
+    try {
+      const usuario = await UsuarioModel.findOne({
+        where: {
+          cedula: cedula,
+        },
+      });
+      if (!usuario) return null;//throw Error("Usuario no encontrado");
+      return {
+        usuarioID: usuario.usuarioID,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        cedula: usuario.cedula,
+        email: usuario.email,
+        rol: usuario.rol,
+        estado: usuario.estado,
+        
       };
     } catch (error) {
       throw error;
@@ -72,6 +98,7 @@ class UsuarioRepository {
           usuarioID: usuario.usuarioID,
           nombre: usuario.nombre,
           apellido: usuario.apellido,
+          cedula: usuario.cedula,
           email: usuario.email,
           rol: usuario.rol,
           estado: usuario.estado,

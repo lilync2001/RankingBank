@@ -9,7 +9,7 @@ import configCreditoRouter from "./config.routes.js";
 
 const router = Router();
 router.use("/auth", loginRouter);
-router.use(validarTokenAuth)
+//router.use(validarTokenAuth)
 router.use("/usuario", usuarioRouter);
 router.use("/ranking", rankingRouter);
 router.use("/credito", creditoRouter);

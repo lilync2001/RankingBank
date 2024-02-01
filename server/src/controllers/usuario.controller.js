@@ -26,10 +26,11 @@ export default class UsuarioController {
 
   async crearUsuario(req, res) {
     try {
-      const { nombre, apellido, telefono, email, password, rol } = req.body;
+      const { nombre, apellido,cedula, telefono, email, password, rol } = req.body;
       const usuario = await this.usuarioService.crearUsuario({
         nombre,
         apellido,
+        cedula,
         telefono,
         email,
         password,
@@ -52,6 +53,30 @@ export default class UsuarioController {
     try {
       const { id } = req.params;
       const usuario = await this.usuarioService.obtenerUsuarioPorID(id);
+      return res.status(200).json({
+        status: true,
+        body: usuario,
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: false,
+        error: error.message,
+        errorStack: "" + error.originalError,
+      });
+    }
+  }
+  async obtenerUsuarioPorCedula(req,res) {
+    try {
+      const { cedula } = req.params;
+      const usuario = await this.usuarioService.obtenerUsuarioPorCedula(cedula);
+     
+      if (!usuario) {
+        return res.status(404).json({
+          status: false,
+          message: "Usuario no encontrado con la cédula especificada",
+        });
+      }
+  
       return res.status(200).json({
         status: true,
         body: usuario,

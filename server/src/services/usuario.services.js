@@ -1,16 +1,27 @@
 import bcrypt from "bcryptjs";  
 import { generartoken } from "../utils/index.utils.js";
 import UsuarioRepository from "../repositories/usuario.respository.js";
+import { CustomError } from "../errors/index.error.js";
 
 class UsuarioService {
   constructor() {
     this.usuarioRepository = new UsuarioRepository();
+    //this.usuarioInsertado = new Usuario();
   }
 
   async crearUsuario(usuario) {
     try {
       let salt = bcrypt.genSaltSync();
       usuario.password = bcrypt.hashSync(usuario.password, salt);
+      //regla de negocio para que un usuario solo tenga un unico registro
+      const {cedula} = usuario
+      //console.log('cedula', cedula)
+      const usuarioExistente = await this.usuarioRepository.obtenerUsuarioPorCedula(cedula);
+     // console.log('usuarioExistente', usuarioExistente)
+      if(usuarioExistente){
+        throw Error("Ya existe un usuario con el mismo número de cédula");
+      }
+        
       const usuarioCreado = await this.usuarioRepository.crearUsuario(usuario);
       return usuarioCreado;
     } catch (error) {
@@ -46,7 +57,23 @@ class UsuarioService {
       throw new CustomError("Error servicio login", statusCode, error);
     }
   }
-
+  async obtenerUsuarioPorCedula(cedula) {
+    try {
+      const usuario = await this.usuarioRepository.obtenerUsuarioPorCedula(cedula);
+      if (!usuario) {
+        return null; // Devolver null si no se encontró ningún usuario
+      }
+      return usuario;
+    } catch (error) {
+      let statusCode = 500;
+      if (error instanceof Error) statusCode = 404;
+      throw new CustomError(
+        "Error servicio al obtener el usuario por cedula",
+        statusCode,
+        error
+      );
+    }
+  }
   async obtenerUsuarioPorEmail(email) {
     try {
       const usuario = await this.usuarioRepository.obtenerUsuarioPorEmail({
@@ -111,6 +138,13 @@ class UsuarioService {
 
   async eliminarUsuario(usuarioID) {
     try {
+      const usuarioaEliminar = await this.usuarioRepository.obtenerUsuarioPorId(
+        usuarioID
+      );
+      //regla de negocio para que el administrador del sistema no pueda ser eliminado
+      if(usuarioaEliminar.rol === 'ADMIN'){
+        throw new Error('No se puede eliminar al usuario administrador');
+      }
       const usuarioEliminado = await this.usuarioRepository.eliminarUsuario(
         usuarioID
       );

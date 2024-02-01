@@ -18,6 +18,11 @@ export const Usuario = sequelize.define(
       type: DataTypes.STRING(255),
       required: true,
     },
+    cedula: {
+      type: DataTypes.STRING(255),
+      required: true,
+      unique: true,
+    },
     telefono: {
       type: DataTypes.STRING(255),
     },
