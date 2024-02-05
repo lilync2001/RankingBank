@@ -13,7 +13,33 @@ export default class UsuarioController {
 
       return res.status(200).json({
         status: true,
-        body: usuario,
+        usuario,
+      });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        status: false,
+        error: error.message,
+        errorStack: "" + error.originalError,
+      });
+    }
+  }
+
+  async actualizarContrasena(req, res) {
+    try {
+      const { id } = req.params;
+
+      const { email, password, newPassword } = req.body;
+
+      await this.usuarioService.actualizarContrasena({
+        id,
+        email,
+        password,
+        newPassword,
+      });
+
+      return res.status(200).json({
+        status: true,
+        message: "Contraseña actualizada correctamente",
       });
     } catch (error) {
       res.status(error.statusCode || 500).json({
@@ -26,7 +52,8 @@ export default class UsuarioController {
 
   async crearUsuario(req, res) {
     try {
-      const { nombre, apellido,cedula, telefono, email, password, rol } = req.body;
+      const { nombre, apellido, cedula, telefono, email, password, rol } =
+        req.body;
       const usuario = await this.usuarioService.crearUsuario({
         nombre,
         apellido,
@@ -36,9 +63,9 @@ export default class UsuarioController {
         password,
         rol,
       });
-      return res.status(201).json({
+      res.status(200).json({
         status: true,
-        body: usuario,
+        message: "Usuario creado correctamente",
       });
     } catch (error) {
       res.status(error.statusCode || 500).json({
@@ -55,6 +82,7 @@ export default class UsuarioController {
       const usuario = await this.usuarioService.obtenerUsuarioPorID(id);
       return res.status(200).json({
         status: true,
+        message: "Usuario obtenido correctamente",
         body: usuario,
       });
     } catch (error) {
@@ -65,20 +93,22 @@ export default class UsuarioController {
       });
     }
   }
-  async obtenerUsuarioPorCedula(req,res) {
+  async obtenerUsuarioPorCedula(req, res) {
     try {
       const { cedula } = req.params;
       const usuario = await this.usuarioService.obtenerUsuarioPorCedula(cedula);
-     
+
       if (!usuario) {
         return res.status(404).json({
           status: false,
-          message: "Usuario no encontrado con la cédula especificada",
+          error: "Usuario no encontrado con la cédula especificada",
+          errorStack: "",
         });
       }
-  
+
       return res.status(200).json({
         status: true,
+        message: "Usuario obtenido correctamente",
         body: usuario,
       });
     } catch (error) {
@@ -95,6 +125,7 @@ export default class UsuarioController {
       const usuarios = await this.usuarioService.obtenerUsuarios();
       return res.status(200).json({
         status: true,
+        message: "Usuarios obtenidos correctamente",
         body: usuarios,
       });
     } catch (error) {
@@ -113,12 +144,10 @@ export default class UsuarioController {
 
       const usuario = await this.usuarioService.obtenerUsuarioPorID(id);
       body.usuarioID = usuario.usuarioID;
-      const usuarioActualizado = await this.usuarioService.actualizarUsuario(
-        body
-      );
-      return res.status(200).json({
+      await this.usuarioService.actualizarUsuario(body);
+      res.status(200).json({
         status: true,
-        body: usuarioActualizado,
+        message: "Usuario actualizado correctamente",
       });
     } catch (error) {
       res.status(error.statusCode || 500).json({
@@ -132,10 +161,10 @@ export default class UsuarioController {
   async eliminarUsuario(req, res) {
     try {
       const { id } = req.params;
-      const usuario = await this.usuarioService.eliminarUsuario(id);
-      return res.status(200).json({
+      await this.usuarioService.eliminarUsuario(id);
+      res.status(200).json({
         status: true,
-        body: usuario,
+        message: "Usuario eliminado correctamente",
       });
     } catch (error) {
       res.status(error.statusCode || 500).json({
@@ -146,5 +175,3 @@ export default class UsuarioController {
     }
   }
 }
-
- 

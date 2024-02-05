@@ -31,7 +31,7 @@ class UsuarioRepository {
         usuarioID: usuario.usuarioID,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
-        cedula: usuarioCreado.cedula,
+        cedula: usuario.cedula,
         email: usuario.email,
         password: usuario.password,
         rol: usuario.rol,
@@ -74,7 +74,7 @@ class UsuarioRepository {
           cedula: cedula,
         },
       });
-      if (!usuario) return null;//throw Error("Usuario no encontrado");
+      if (!usuario) return null; //throw Error("Usuario no encontrado");
       return {
         usuarioID: usuario.usuarioID,
         nombre: usuario.nombre,
@@ -83,7 +83,6 @@ class UsuarioRepository {
         email: usuario.email,
         rol: usuario.rol,
         estado: usuario.estado,
-        
       };
     } catch (error) {
       throw error;
@@ -109,11 +108,11 @@ class UsuarioRepository {
     }
   }
 
-  async actualizarUsuario(body) {
+  async actualizarUsuario(body, id) {
     try {
       const usuarioActualizado = await UsuarioModel.update(body, {
         where: {
-          usuarioID: body.usuarioID,
+          usuarioID: id,
         },
       });
       if (usuarioActualizado[0] === 0) throw Error("Usuario no encontrado");
