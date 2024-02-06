@@ -1,0 +1,183 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #ffe001;
+  --secondary: #bdbec0;
+  --tertiary: #39265c;
+  --quaternary: #30363d;
+  --quinary: #484f58;
+  --senary: #6e7681;
+  --septenary: #8b949e;
+  --octonary: #b1bac4;
+  --nonary: #c9d1d9;
+  --denary: #f0f6fc;
+  --green: #2ea043;
+  --orange: #ffab70;
+  --red: #f85149;
+  --yellow: #fbbd2e;
+  --blue: #0366d6;
+  --purple: #8e44ad;
+  --pink: #ff7bba;
+  --cyan: #79c0ff;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #586069;
+  --gray-light: #6a737d;
+  --gray-dark: #24292e;
+  --gray-darker: #121416;
+  --gray-lighter: #d1d5da;
+  --accent: var(--blue);
+  --accent-fg: var(--white);
+  --accent-hover: #0366d6;
+  --accent-hover-fg: var(--white);
+  --accent-focus: #0366d6;
+  --accent-focus-fg: var(--white);
+  --accent-active: #035fc7;
+  --accent-active-fg: var(--white);
+  --accent-disabled: #94d3f7;
+  --accent-disabled-fg: var(--white);
+  --accent-soft: rgba(3, 102, 214, 0.15);
+  --accent-soft-fg: var(--white);
+  --accent-soft-hover: rgba(3, 102, 214, 0.2);
+  --accent-soft-hover-fg: var(--white);
+  --accent-soft-focus: rgba(3, 102, 214, 0.2);
+  --accent-soft-focus-fg: var(--white);
+  --accent-soft-active: rgba(3, 102, 214, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  /* background-color: #ff000018; */
+  /* border: solid red 0.5px; */
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-size: 14px;
+  position: relative;
+  margin: 0;
+  background: rgb(235, 235, 235);
+  color: #555;
+  font-family: "Open Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  /* -webkit-transition: width 0.5s;
+  -moz-transition: width 0.5s;
+  -ms-transition: width 0.5s;
+  -o-transition: width 0.5s;
+  transition: width 0.5s;
+  overflow: hidden; */
+}
+
+h1 {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label {
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h2,
+h4,
+h6 {
+  color: rgb(160, 160, 160);
+}
+
+h3 span,
+h5 span {
+  color: var(--color-primary);
+}
+
+p {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 1em;
+  margin: 0 !important;
+  /* font-weight: lighter;  */
+  /* aumente el lighnet por q parece en negrita */
+}
+
+hr {
+  opacity: 0.1;
+}
+/* badges  */
+.bg-warning {
+  padding: 6px 4px !important;
+  width: 80px;
+  background-color: rgb(253 230 138) !important;
+  color: rgb(217 119 6);
+  font-size: 0.9em;
+  line-height: normal;
+}
+
+.bg-success {
+  padding: 6px 4px !important;
+  width: 80px;
+  background-color: rgb(187 247 208) !important;
+  color: rgb(22 163 74);
+  font-size: 0.9em;
+  line-height: normal;
+}
+
+.bg-primary {
+  padding: 6px 4px !important;
+  width: 80px;
+  background-color: rgb(191 219 254) !important;
+  color: rgb(37 99 235);
+  font-size: 0.9em;
+  line-height: normal;
+}
+
+.bg-danger {
+  padding: 6px 4px !important;
+  width: 80px;
+  background-color: rgb(254 202 202) !important;
+  color: rgb(220 38 38);
+  font-size: 0.9em;
+  line-height: normal;
+}
+/* otros estilos contiene estilos del header y del menu  */
+dl,
+ol,
+ul {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding-left: 0;
+}
+
+a {
+  transition: background 0.2s, color 0.2s;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+.btn {
+  text-transform: none;
+  padding: 0.2rem 1rem;
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}

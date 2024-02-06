@@ -1,0 +1,53 @@
+<div class="containerLogin">
+  <!-- <div class="imglogin">
+    <img src="../../../assets/svg/logo-riobamba2.svg" alt="" />
+  </div> -->
+  <div class="content-login-box">
+    <div class="login-box">
+      <div>
+        <h2>Iniciar Sesión</h2>
+        <form [formGroup]="myForm">
+          <div class="user-box">
+            <input type="text" name="" formControlName="email" />
+            <label>Email</label>
+            <div
+              class="alert alert-danger mt-2 control-error"
+              *ngIf="
+                myForm.get('email')!.hasError('required') &&
+                myForm.get('email')!.touched
+              "
+            >
+              Este campo es requerido.
+            </div>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" formControlName="password" />
+            <label>Contraseña</label>
+          </div>
+          <div
+            class="alert alert-danger mt-2 control-error"
+            *ngIf="
+              myForm.get('password')!.hasError('required') &&
+              myForm.get('password')!.touched
+            "
+          >
+            Este campo es requerido.
+          </div>
+          <!-- <a href="#">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Submit
+        </a> -->
+        </form>
+        <button class="boton" [disabled]="!myForm.valid" (click)="Login()">
+          INGRESAR
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- <div>
+    <img src="../../../assets/img/logo-alcaldia-riobamba.png" alt="" class="" />
+  </div> -->
+</div>
