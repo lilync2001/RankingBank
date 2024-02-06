@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import config from 'config/config';
-import { BehaviorSubject, Observable } from 'rxjs';
+
+let user = JSON.parse(localStorage.getItem('user') || '{}');
+let token = user && user.token ? user.token : '';
+
+const httpOptions = {
+  headers: {
+    'Content-Type': 'application/json',
+    'x-token': token,
+  },
+  withCredentials: true,
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class RankingService {
-  private URL_RANKING: string = config.URL_API_BASE + '/ranking';
-  private URL_FILE: string = config.URL_API_BASE + 'csv';
+  private URL_RANKING: string = config.URL_API_BASE + 'credito/estado';
 
   data!: any[];
 
   constructor(private http: HttpClient) {}
 
-  getRanking() {
-    return this.http.get<any>(this.URL_RANKING, {
-      withCredentials: true,
-    });
-  }
-
-  postRanking(file: any) {
-    return this.http.post<any>(this.URL_FILE, file, {
-      withCredentials: true,
-    });
+  putEstadoCredito(id: number, tipo: string) {
+    console.log('httpOptions => ', httpOptions);
+    return this.http.put<any>(
+      `${this.URL_RANKING}/${id}`,
+      { estado: tipo },
+      httpOptions
+    );
   }
 }

@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   Login() {
-    console.log(this.myForm.value);
     Swal.fire({
       title: 'Está seguro que ingreso las credenciales correctas?',
       showDenyButton: true,

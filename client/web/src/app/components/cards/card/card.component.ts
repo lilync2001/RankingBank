@@ -21,8 +21,6 @@ export class CardComponent implements OnInit, OnDestroy {
     );
     this.getRanking().subscribe((data) => {
       this.Ranking = data;
-      console.log('Data Ranking => ', this.Ranking.rankings);
-      console.log('Data recibida => ', data);
     });
 
     this.getError().subscribe((data) => {
